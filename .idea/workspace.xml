@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b870c67f-943e-4649-844d-06222317761d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dataset/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset/datasets.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset/transforms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simplenet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/timer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/densenet.py" beforeDir="false" afterPath="$PROJECT_DIR$/densenet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1lij2PknjW2Pij5OdbfduCI2ap6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/utils" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/utils" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.train">
+    <configuration name="datasets" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="densenet.pytorch" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/dataset" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="false" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset/datasets.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="densenet.pytorch" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.datasets" />
+      <item itemvalue="Python.train" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.train" />
+        <item itemvalue="Python.datasets" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b870c67f-943e-4649-844d-06222317761d" name="Default Changelist" comment="" />
+      <created>1608086597680</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1608086597680</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2024" y="320" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608106749751">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state x="2024" y="320" key="#com.intellij.execution.impl.EditConfigurationsDialog/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608106749751" />
+    <state width="1899" height="588" key="GridCell.Tab.0.bottom" timestamp="1608114954532">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="588" key="GridCell.Tab.0.bottom/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608114954532" />
+    <state width="1899" height="588" key="GridCell.Tab.0.center" timestamp="1608114954532">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="588" key="GridCell.Tab.0.center/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608114954532" />
+    <state width="1899" height="588" key="GridCell.Tab.0.left" timestamp="1608114954532">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="588" key="GridCell.Tab.0.left/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608114954532" />
+    <state width="1899" height="588" key="GridCell.Tab.0.right" timestamp="1608114954532">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="588" key="GridCell.Tab.0.right/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608114954532" />
+    <state width="1899" height="203" key="GridCell.Tab.1.bottom" timestamp="1608114899271">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="203" key="GridCell.Tab.1.bottom/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608114899271" />
+    <state width="1899" height="203" key="GridCell.Tab.1.center" timestamp="1608114899271">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="203" key="GridCell.Tab.1.center/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608114899271" />
+    <state width="1899" height="203" key="GridCell.Tab.1.left" timestamp="1608114899271">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="203" key="GridCell.Tab.1.left/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608114899271" />
+    <state width="1899" height="203" key="GridCell.Tab.1.right" timestamp="1608114899271">
+      <screen x="1600" y="116" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="203" key="GridCell.Tab.1.right/1600.116.1920.1080/0.0.1600.1200@1600.116.1920.1080" timestamp="1608114899271" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dataset/datasets.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/densenet.py</url>
+          <line>115</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train.py</url>
+          <line>167</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train.py</url>
+          <line>117</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train.py</url>
+          <line>114</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

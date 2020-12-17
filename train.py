@@ -22,16 +22,23 @@ import math
 import shutil
 
 import setproctitle
-
-import densenet
+import simplenet
 import make_graph
+from dataset.datasets import ClsDataset
+import dataset.transforms as transform
+from utils.timer import Timer
+
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batchSz', type=int, default=64)
-    parser.add_argument('--nEpochs', type=int, default=300)
+    parser.add_argument('--batchSz', type=int, default=16)
+    parser.add_argument('--train-data', type=str, default="/home/wenhai.zhang/WORK_SPACE/cdeg/DataSet/ESOPHAGUS_20201207/txt/train.csv")
+    parser.add_argument('--test-data', type=str, default="/home/wenhai.zhang/WORK_SPACE/cdeg/DataSet/ESOPHAGUS_20201207/txt/test.csv")
+    parser.add_argument('--nEpochs', type=int, default=1000)
     parser.add_argument('--no-cuda', action='store_true')
-    parser.add_argument('--save')
+    parser.add_argument('--data', type=str, default='')
+    parser.add_argument('--save', type=str, default="/home/wenhai.zhang/cls_net")
+    parser.add_argument('--crop_size', type=list, default=[64, 64])
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--opt', type=str, default='sgd',
                         choices=('sgd', 'adam', 'rmsprop'))
@@ -49,33 +56,39 @@ def main():
         shutil.rmtree(args.save)
     os.makedirs(args.save, exist_ok=True)
 
-    normMean = [0.49139968, 0.48215827, 0.44653124]
-    normStd = [0.24703233, 0.24348505, 0.26158768]
-    normTransform = transforms.Normalize(normMean, normStd)
-
-    trainTransform = transforms.Compose([
-        transforms.RandomCrop(32, padding=4),
-        transforms.RandomHorizontalFlip(),
+    trainTransform = transform.Compose([
+        transform.CenterCrop(args.crop_size),
+        transform.Resize(args.crop_size),
+        transform.NormLize(),
         transforms.ToTensor(),
-        normTransform
-    ])
-    testTransform = transforms.Compose([
-        transforms.ToTensor(),
-        normTransform
     ])
 
-    kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
+    testTransform = transform.Compose([
+        transform.CenterCrop(args.crop_size),
+        transform.Resize(args.crop_size),
+        transform.NormLize(),
+        transforms.ToTensor(),
+    ])
+
+    train_dataset = ClsDataset(args.train_data, imgsz=(512, 512), crop_size=args.crop_size, transforms=trainTransform, p_ratio=0.5)
+    test_dataset = ClsDataset(args.test_data, imgsz=(512, 512), crop_size=args.crop_size, transforms=testTransform, p_ratio=0.5)
+
+    kwargs = {'num_workers': 0, 'pin_memory': True} if args.cuda else {}
     trainLoader = DataLoader(
-        dset.CIFAR10(root='cifar', train=True, download=True,
-                     transform=trainTransform),
-        batch_size=args.batchSz, shuffle=True, **kwargs)
-    testLoader = DataLoader(
-        dset.CIFAR10(root='cifar', train=False, download=True,
-                     transform=testTransform),
-        batch_size=args.batchSz, shuffle=False, **kwargs)
+        dataset=train_dataset,
+        batch_size=args.batchSz,
+        shuffle=True,
+        drop_last=True,
+        **kwargs)
 
-    net = densenet.DenseNet(growthRate=12, depth=100, reduction=0.5,
-                            bottleneck=True, nClasses=10)
+    testLoader = DataLoader(
+        dataset=test_dataset,
+        batch_size=args.batchSz,
+        shuffle=False,
+        drop_last=True,
+        **kwargs)
+
+    net = simplenet.SimpleNet(3, 2)
 
     print('  + Number of params: {}'.format(
         sum([p.data.nelement() for p in net.parameters()])))
@@ -93,15 +106,21 @@ def main():
     trainF = open(os.path.join(args.save, 'train.csv'), 'w')
     testF = open(os.path.join(args.save, 'test.csv'), 'w')
 
+    BestTestErr = 1.0
+
     for epoch in range(1, args.nEpochs + 1):
         adjust_opt(args.opt, optimizer, epoch)
         train(args, epoch, net, trainLoader, optimizer, trainF)
-        test(args, epoch, net, testLoader, optimizer, testF)
+        test_err = test(args, epoch, net, testLoader, optimizer, testF)
+        print("epoch:{}, test err:{}".format(epoch, test_err))
+        if test_err < BestTestErr:
+            BestTestErr = test_err
+            torch.save(net, os.path.join(args.save, 'best.pth'))
+        # os.system('./plot.py {} &'.format(args.save))
         torch.save(net, os.path.join(args.save, 'latest.pth'))
-        os.system('./plot.py {} &'.format(args.save))
-
     trainF.close()
     testF.close()
+
 
 def train(args, epoch, net, trainLoader, optimizer, trainF):
     net.train()
@@ -113,23 +132,26 @@ def train(args, epoch, net, trainLoader, optimizer, trainF):
         data, target = Variable(data), Variable(target)
         optimizer.zero_grad()
         output = net(data)
-        loss = F.nll_loss(output, target)
+        # loss = F.nll_loss(output, target)
+        loss = F.cross_entropy(output, target)
         # make_graph.save('/tmp/t.dot', loss.creator); assert(False)
         loss.backward()
         optimizer.step()
         nProcessed += len(data)
         pred = output.data.max(1)[1] # get the index of the max log-probability
         incorrect = pred.ne(target.data).cpu().sum()
-        err = 100.*incorrect/len(data)
+        err = 1.*incorrect/len(data)
         partialEpoch = epoch + batch_idx / len(trainLoader) - 1
-        print('Train Epoch: {:.2f} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\tError: {:.6f}'.format(
-            partialEpoch, nProcessed, nTrain, 100. * batch_idx / len(trainLoader),
-            loss.data[0], err))
+        print('Train Epoch: {:.2f} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\tError: {:.6f}  \tLR: {:.4f}'.format(
+            partialEpoch, nProcessed, nTrain, 100. * batch_idx / len(trainLoader), loss.data, err, optimizer.param_groups[0]["lr"]))
 
-        trainF.write('{},{},{}\n'.format(partialEpoch, loss.data[0], err))
+        trainF.write('{},{},{}\n'.format(partialEpoch, loss.data, err))
         trainF.flush()
 
+
 def test(args, epoch, net, testLoader, optimizer, testF):
+    timer = Timer()
+    timer.tic()
     net.eval()
     test_loss = 0
     incorrect = 0
@@ -138,29 +160,34 @@ def test(args, epoch, net, testLoader, optimizer, testF):
             data, target = data.cuda(), target.cuda()
         data, target = Variable(data, volatile=True), Variable(target)
         output = net(data)
-        test_loss += F.nll_loss(output, target).data[0]
+        test_loss += F.cross_entropy(output, target).data
         pred = output.data.max(1)[1] # get the index of the max log-probability
         incorrect += pred.ne(target.data).cpu().sum()
-
+    average_time = timer.toc()
+    print("test a img average time is {:.3f} seconds".format(average_time / len(testLoader.dataset)))
     test_loss = test_loss
     test_loss /= len(testLoader) # loss function already averages over batch size
     nTotal = len(testLoader.dataset)
-    err = 100.*incorrect/nTotal
-    print('\nTest set: Average loss: {:.4f}, Error: {}/{} ({:.0f}%)\n'.format(
+    err = 1.*incorrect/nTotal
+    print('\nTest set: Average loss: {:.4f}, Error: {}/{} ({:.3f})\n'.format(
         test_loss, incorrect, nTotal, err))
 
     testF.write('{},{},{}\n'.format(epoch, test_loss, err))
     testF.flush()
 
+    return err
+
+
 def adjust_opt(optAlg, optimizer, epoch):
     if optAlg == 'sgd':
-        if epoch < 150: lr = 1e-1
-        elif epoch == 150: lr = 1e-2
-        elif epoch == 225: lr = 1e-3
+        if epoch < 150: lr = 1e-2
+        elif epoch == 150: lr = 1e-3
+        elif epoch == 225: lr = 1e-4
         else: return
 
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
+
 
 if __name__=='__main__':
     main()

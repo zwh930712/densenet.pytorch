@@ -15,6 +15,7 @@ import torchvision.models as models
 import sys
 import math
 
+
 class Bottleneck(nn.Module):
     def __init__(self, nChannels, growthRate):
         super(Bottleneck, self).__init__()
@@ -31,6 +32,7 @@ class Bottleneck(nn.Module):
         out = self.conv2(F.relu(self.bn2(out)))
         out = torch.cat((x, out), 1)
         return out
+
 
 class SingleLayer(nn.Module):
     def __init__(self, nChannels, growthRate):
